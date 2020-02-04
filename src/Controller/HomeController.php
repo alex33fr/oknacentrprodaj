@@ -38,4 +38,60 @@ class HomeController extends AbstractController
                 'product' => $product
         ]);
     }
+
+    /**
+     * @Route("/balcony", name="balcony")
+     */
+    public function balcony()
+    {
+        return $this->render('home/balcony.html.twig');
+    }
+
+    /**
+     * @Route("/dveri", name="dveri")
+     */
+    public function dveri()
+    {
+        return $this->render('home/dveri.html.twig');
+    }
+
+    /**
+     * @Route("/potolki", name="potolki")
+     */
+    public function potolki()
+    {
+        return $this->render('home/potolki.html.twig');
+    }
+
+    /**
+     * @Route("/rolstavni", name="rolstavni")
+     */
+    public function rolstavni()
+    {
+        return $this->render('home/rolstavni.html.twig');
+    }
+
+    /**
+     * @Route("/jhaluzi", name="jhaluzi")
+     */
+    public function jhaluzi()
+    {
+        return $this->render('home/jhaluzi.html.twig');
+    }
+
+    /**
+     * @Route("/vorota", name="vorota")
+     */
+    public function vorota()
+    {
+        return $this->render('home/vorota.html.twig');
+    }
+
+    /**
+     * @Route("/stellajhi", name="stellajhi")
+     */
+    public function stellajhi()
+    {
+        return $this->render('home/stellajhi.html.twig');
+    }
 }
