@@ -16,4 +16,11 @@ class DashboardController extends AbstractController
             'controller_name' => 'DashboardController',
         ]);
     }
+
+    /**
+     * @Route("/new", name="new_product")
+     */
+    public function createProduct(){
+        return $this->render('dashboard/create.html.twig');
+    }
 }
