@@ -1,7 +1,52 @@
 {% extends 'base.html.twig' %}
 
+{% form_theme formProduct 'bootstrap_4_layout.html.twig' %}
 {% block title %}Dashboard{% endblock %}
 
 {% block body %}
-<h1>DASHBOARD</h1>
+
+<h1>
+ {% if editMode %}
+  Изменить существующий товар
+ {% else %}
+  Создать новый продукт
+ {% endif %}
+</h1>
+   <!-- <form action="" method="post">
+        <input type="text" name="productName" placeholder="Название продукта">
+        <input type="text" name="productImage" placeholder="Картинка">
+        <input type="text" name="productColor" placeholder="Цвет продукта">
+        <input type="text" name="productDescriptionOne" placeholder="Описание продукта 1">
+        <input type="text" name="productDescriptionTwo" placeholder="Описание продукта 2">
+        <input type="text" name="productCode" placeholder="Код продукта">
+        <input type="number" name="productQuantity" placeholder="Кол-во продуктов на складе">
+        <input type="number" name="productLowPrice" placeholder="Цена со скидкой">
+        <input type="number" name="productCoupon" placeholder="% скидки">
+        <input type="number" name="productPrice" placeholder="Цена">
+        <input type="number" name="productSwitchPrice" placeholder="Скидка 0 или 1">
+        <input type="date" name="productCreatedAt" placeholder="Дата публикации">
+        <button type="submit">Выставить</button>
+    </form>
+    -->
+    {{ form_start(formProduct) }}
+    {{ form_row(formProduct.productName) }}
+    {{ form_row(formProduct.productImage) }}
+    {{ form_row(formProduct.productColor) }}
+    {{ form_row(formProduct.productDescriptionOne) }}
+    {{ form_row(formProduct.productDescriptionTwo) }}
+    {{ form_row(formProduct.productCode) }}
+    {{ form_row(formProduct.productQuantity) }}
+    {{ form_row(formProduct.productLowPrice) }}
+    {{ form_row(formProduct.productCoupon) }}
+    {{ form_row(formProduct.productPrice) }}
+    {{ form_row(formProduct.productSwitchPrice) }}
+    <button type="submit" class="btn btn-danger mb-5">
+     {% if editMode %}
+     Сохранить
+     {% else %}
+     Создать товар
+     {% endif %}
+    </button>
+    {{ form_end(formProduct) }}
+
 {% endblock %}
