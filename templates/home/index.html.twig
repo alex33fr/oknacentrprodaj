@@ -24,7 +24,7 @@
 
     <section class="products">
     {% for product in products %}
-        <section class="p-5 d-inline-flex">
+        <section class="p-5">
             <h1 class="text-danger">{{ product.productName }}</h1>
             <h3>Цвет: {{ product.productColor }}</h3>
             <img src="{{ product.productImage }}" alt="{{ product.productDescriptionTwo }}">
