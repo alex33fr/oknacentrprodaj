@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\ProductRepository")
@@ -18,16 +19,29 @@ class Product
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     *
      */
     private $productColor;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\Length(
+     *      min = 2,
+     *      max = 100,
+     *      minMessage = "Описание слишком короткое, используйте больше {{ limit }} символов",
+     *      maxMessage = "Описание очень длинное, нужно меньше символов чем {{ limit }}"
+     * )
      */
     private $productName;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\Length(
+     *      min = 4,
+     *      max = 100,
+     *      minMessage = "Описание слишком короткое, используйте больше {{ limit }} символов",
+     *      maxMessage = "Описание очень длинное, нужно меньше символов чем {{ limit }}"
+     * )
      */
     private $productImage;
 
