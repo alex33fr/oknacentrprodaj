@@ -3,10 +3,16 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Exception;
+use Symfony\Component\HttpFoundation\File\File;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\Validator\Constraints as Assert;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
+
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\ProductRepository")
+ * @Vich\Uploadable
  */
 class Product
 {
@@ -35,15 +41,20 @@ class Product
     private $productName;
 
     /**
+     * @var string|null
      * @ORM\Column(type="string", length=255)
-     * @Assert\Length(
-     *      min = 4,
-     *      max = 100,
-     *      minMessage = "Описание слишком короткое, используйте больше {{ limit }} символов",
-     *      maxMessage = "Описание очень длинное, нужно меньше символов чем {{ limit }}"
-     * )
      */
     private $productImage;
+
+    /**
+     * @Assert\Image(mimeTypes="image/jpeg",
+     *     mimeTypesMessage="Фотография должна быть только типа: .jpeg",
+     *     detectCorrupted="true",
+     *     corruptedMessage="Файл фотографии повреждён, попробуйте снова или же используйте другой файл")
+     * @var File|null
+     * @Vich\UploadableField(mapping="products_image", fileNameProperty="productImage")
+     */
+    private $productImageFile;
 
     /**
      * @ORM\Column(type="text", nullable=true)
@@ -90,6 +101,11 @@ class Product
      */
     private $productCreatedAt;
 
+    /**
+     * @ORM\Column(type="datetime")
+     */
+    private $updated_at;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -115,18 +131,6 @@ class Product
     public function setProductName(string $productName): self
     {
         $this->productName = $productName;
-
-        return $this;
-    }
-
-    public function getProductImage(): ?string
-    {
-        return $this->productImage;
-    }
-
-    public function setProductImage(string $productImage): self
-    {
-        $this->productImage = $productImage;
 
         return $this;
     }
@@ -235,6 +239,54 @@ class Product
     public function setProductCreatedAt(\DateTimeInterface $productCreatedAt): self
     {
         $this->productCreatedAt = $productCreatedAt;
+
+        return $this;
+    }
+
+    /**
+     * @return File|null
+     */
+    public function getProductImageFile(): ?File
+    {
+        return $this->productImageFile;
+    }
+
+    /**
+     * @param File|null $productImageFile
+     * @throws Exception
+     */
+    public function setProductImageFile(?File $productImageFile): void
+    {
+        $this->productImageFile = $productImageFile;
+        if ($this->productImageFile instanceof UploadedFile) {
+            $this->updated_at = new \DateTime('now');
+        }
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getProductImage(): ?string
+    {
+        return $this->productImage;
+    }
+
+    /**
+     * @param string|null $productImage
+     */
+    public function setProductImage(?string $productImage): void
+    {
+        $this->productImage = $productImage;
+    }
+
+    public function getUpdatedAt(): ?\DateTimeInterface
+    {
+        return $this->updated_at;
+    }
+
+    public function setUpdatedAt(\DateTimeInterface $updated_at): self
+    {
+        $this->updated_at = $updated_at;
 
         return $this;
     }

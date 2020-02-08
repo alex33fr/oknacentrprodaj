@@ -3,15 +3,17 @@
 {% block title %}Product{% endblock %}
 
 {% block body %}
-    <section class="mb-2">
-        <h1 class="text-danger">{{ product.productName }}</h1>
-        <h3>Цвет: {{ product.productColor }}</h3>
-        <img src="{{ product.productImage }}" alt="{{ product.productDescriptionTwo }}">
-        <p>Описание: {{ product.productDescriptionOne }}</p>
-        <h4>Код товара: {{ product.productCode }}</h4>
-        <p>Кол-во: {{ product.productQuantity }}</p>
-        <h2>Цена {{ product.productPrice }} Руб.</h2>
-        <div class="metadata"> Дата: {{ product.productCreatedAt | date('d/m/Y') }}</div>
-        <a href="{{ path('home') }}" class="btn btn-dark">Вернуться на главную ></a>
-    </section>
+            <section class="p-5">
+                <h1 class="text-danger">{{ product.productName }}</h1>
+                <h3>Цвет: {{ product.productColor }}</h3>
+                {% if product.productImage %}
+                    <img src="{{ vich_uploader_asset(product, 'productImageFile') | imagine_filter('medium_thumb') }}" alt="card-img-top">
+                {% endif %}
+                <p>Описание: {{ product.productDescriptionOne }}</p>
+                <h4>Код товара: {{ product.productCode }}</h4>
+                <p>Кол-во: {{ product.productQuantity }}</p>
+                <h2>Цена {{ product.productPrice }} Руб.</h2>
+                <div class="metadata"> Дата: {{ product.productCreatedAt | date('d/m/Y') }}</div>
+                <a href="{{ path('home') }}" class="btn btn-dark">Вернуться на главную ></a>
+            </section>
 {% endblock %}

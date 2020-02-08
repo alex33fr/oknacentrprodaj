@@ -18,7 +18,7 @@ class HomeController extends AbstractController
      */
     public function index(ProductRepository $repo)
     {
-        $products = $repo->findBy(array('id' => [1, 2, 3]));
+        $products = $repo->findBy(array('id' => [1, 2, 3, 19]));
 
         return $this->render('home/index.html.twig', [
             'controller_name' => 'HomeController',

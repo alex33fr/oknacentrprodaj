@@ -36,6 +36,7 @@ class DashboardController extends AbstractController
         $form->handleRequest($request);
 
         if($form->isSubmitted() && $form->isValid()){
+
             if(!$product->getId()){
                 $product->setProductCreatedAt(new \DateTime());
             }
